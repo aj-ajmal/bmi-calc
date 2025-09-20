@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your BMI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: white;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .head {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: #ffffff;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px 20px;
+            border-radius: 15px;
+            border: none;
+            font-size: 16px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        input:focus {
+            outline: none;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 1);
+        }
+
+        input::placeholder {
+            color: #666;
+            font-weight: 500;
+        }
+
+        .btn-grp {
+            display: flex;
+            gap: 15px;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+
+        button {
+            flex: 1;
+            min-width: 120px;
+            padding: 15px 25px;
+            border-radius: 15px;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        #mbtn {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+        }
+
+        #mbtn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(76, 175, 80, 0.4);
+        }
+
+        #btn {
+            background: linear-gradient(45deg, #f44336, #da190b);
+            color: white;
+        }
+
+        #btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(244, 67, 54, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .result-section {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        #value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #4CAF50;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        #last {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #FFD700;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+            line-height: 1.4;
+        }
+
+        /* Mobile First Responsive Design */
+        @media (max-width: 480px) {
+            .container {
+                padding: 1.5rem;
+                margin: 10px;
+            }
+
+            .head {
+                font-size: 1.6rem;
+                margin-bottom: 1.5rem;
+            }
+
+            input {
+                padding: 12px 15px;
+                font-size: 15px;
+            }
+
+            .btn-grp {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            button {
+                min-width: 100%;
+                padding: 12px 20px;
+                font-size: 15px;
+            }
+
+            #value {
+                font-size: 2rem;
+            }
+
+            #last {
+                font-size: 1rem;
+            }
+        }
+
+        /* Tablet */
+        @media (min-width: 481px) and (max-width: 768px) {
+            .container {
+                max-width: 500px;
+                padding: 2.5rem;
+            }
+
+            .head {
+                font-size: 2.2rem;
+            }
+        }
+
+        /* Large screens */
+        @media (min-width: 769px) {
+            .container {
+                max-width: 450px;
+            }
+
+            .head {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Landscape orientation on small devices */
+        @media (max-height: 600px) and (orientation: landscape) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .head {
+                font-size: 1.4rem;
+                margin-bottom: 1rem;
+            }
+
+            input {
+                margin-bottom: 10px;
+                padding: 10px 15px;
+            }
+
+            .result-section {
+                margin-top: 1rem;
+                padding: 1rem;
+            }
+
+            #value {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="head">BMI Calculator</h1>
+        <div class="input-group">
+            <input id="height" type="number" placeholder="Height in cm" min="50" max="250">
+            <input id="weight" type="number" placeholder="Weight in kg" min="20" max="300">
+        </div>
+        <div class="btn-grp">
+            <button id="mbtn">Calculate BMI</button>  
+            <button id="btn">Reset</button>
+        </div>
+        <div class="result-section">
+            <h1 id="value"></h1>
+            <p id="last"></p>
+        </div>
+    </div>
+  
+
+    <script>
+        const btn = document.getElementById('mbtn');
+        const hgt = document.getElementById('height');
+        const wgt = document.getElementById('weight');
+        const val = document.getElementById('value');
+        const las = document.getElementById('last');
+        const btn1 = document.getElementById('btn');
+
+        btn.addEventListener("click", calculateBMI);
+        btn1.addEventListener("click", clearInputs);
+
+        // Add Enter key support
+        hgt.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                calculateBMI();
+            }
+        });
+
+        wgt.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                calculateBMI();
+            }
+        });
+
+        function calculateBMI() {
+            const height = parseFloat(hgt.value);
+            const weight = parseFloat(wgt.value);
+
+            // Validation
+            if (!height || !weight) {
+                showAlert("Please fill in all values");
+                clearResults();
+                return;
+            }
+
+            if (height < 50 || height > 250) {
+                showAlert("Please enter a valid height (50-250 cm)");
+                clearResults();
+                return;
+            }
+
+            if (weight < 20 || weight > 300) {
+                showAlert("Please enter a valid weight (20-300 kg)");
+                clearResults();
+                return;
+            }
+
+            // Calculate BMI
+            const bmi = (weight / ((height / 100) ** 2));
+            val.textContent = bmi.toFixed(1);
+
+            // Determine BMI category
+            let category = "";
+            let color = "";
+
+            if (bmi < 18.5) {
+                category = "Underweight";
+                color = "#3498db";
+            } else if (bmi >= 18.5 && bmi < 25) {
+                category = "Normal weight";
+                color = "#2ecc71";
+            } else if (bmi >= 25 && bmi < 30) {
+                category = "Overweight";
+                color = "#f39c12";
+            } else {
+                category = "Obese";
+                color = "#e74c3c";
+            }
+
+            las.textContent = `You are ${category}`;
+            val.style.color = color;
+            
+            // Add animation to result
+            val.style.transform = "scale(1.1)";
+            setTimeout(() => {
+                val.style.transform = "scale(1)";
+            }, 200);
+        }
+
+        function clearInputs() {
+            hgt.value = "";
+            wgt.value = "";
+            clearResults();
+        }
+
+        function clearResults() {
+            val.textContent = "";
+            las.textContent = "";
+            val.style.color = "#4CAF50";
+        }
+
+        function showAlert(message) {
+            // Create a custom alert styled to match the design
+            const alertDiv = document.createElement('div');
+            alertDiv.style.cssText = `
+                position: fixed;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: rgba(244, 67, 54, 0.9);
+                color: white;
+                padding: 15px 25px;
+                border-radius: 10px;
+                font-weight: 600;
+                z-index: 1000;
+                animation: slideDown 0.3s ease;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            `;
+            alertDiv.textContent = message;
+            
+            document.body.appendChild(alertDiv);
+            
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 3000);
+        }
+
+        // Add CSS animation for alert
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideDown {
+                from {
+                    opacity: 0;
+                    transform: translateX(-50%) translateY(-20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(-50%) translateY(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
