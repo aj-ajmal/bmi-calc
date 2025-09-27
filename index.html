@@ -316,8 +316,20 @@
             } else if (bmi >= 25 && bmi < 30) {
                 category = "Overweight";
                 color = "#f39c12";
-            } else {
-                category = "Obese";
+            }
+            else if (bmi >=30 &&  bmi < 35)
+                 {
+                category = "Obese --- class I";
+                color = "#e74c3c";
+            }
+
+            else if (bmi >=35 &&  bmi < 40)
+                 {
+                category = "Obese --- class II";
+                color = "#e74c3c";
+            }   
+            else {
+                category = "Obese Higher risk ";
                 color = "#e74c3c";
             }
 
@@ -387,6 +399,7 @@
     </script>
 </body>
 </html>
+
 
 
 
